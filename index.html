@@ -1,13 +1,19 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
 <script src="https://d3js.org/d3.v7.min.js"></script>
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css" integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA==" crossorigin=""/>
-<script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js" integrity="sha512-nMMmRyTVoLYqjP9hrbed9S+FzjZHW5gY1TWCHA5ckwXZBadntCNs8kEqAWdrb9O7rxbCaA4lKTIWjDXZxflOcA==" crossorigin=""></script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css"
+  integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
+  crossorigin="" />
+<script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js"
+  integrity="sha512-nMMmRyTVoLYqjP9hrbed9S+FzjZHW5gY1TWCHA5ckwXZBadntCNs8kEqAWdrb9O7rxbCaA4lKTIWjDXZxflOcA=="
+  crossorigin=""></script>
 
 <div id="mapid"></div>
 
 <style>
-#mapid { height: 400px; }
+  #mapid {
+    height: 400px;
+  }
 </style>
 
 <body>
@@ -19,28 +25,33 @@
     var mymap = L
       .map('mapid')
       .setView([50, -0.1], 4);
-    
+
     // Add a tile to the map = a background. Comes from OpenStreetmap
     L.tileLayer(
-        'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a>',
-        maxZoom: 6,
-        }).addTo(mymap);
-    
-    
-    </script>
+      'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a>',
+      maxZoom: 6,
+    }).addTo(mymap);
 
-    <svg width="720" height="120">
-      <circle cx="40" cy="60" r="10"></circle>
-      <circle cx="80" cy="60" r="10"></circle>
-      <circle cx="120" cy="60" r="10"></circle>
-    </svg>
-    <script>
-      var circle = d3.selectAll("circle");
-      circle.style("fill", "steelblue");
-      //circle.attr("r", 30);
-      //circle.attr("cx", function() { return Math.random() * 720; });
-      circle.data([32, 57, 112]);
-      circle.attr("r", function(d) { return Math.sqrt(d); });
 
-    </script>
+  </script>
+
+  <svg width="720" height="120">
+    <!-- <circle cx="40" cy="60" r="10"></circle>
+    <circle cx="80" cy="60" r="10"></circle>
+    <circle cx="120" cy="60" r="10"></circle> -->
+    
+  </svg>
+  <script>
+   
+    var svg = d3.select("svg");
+
+    var circle = svg.selectAll("circle")
+      .data([32, 57, 112, 293]);
+      
+    var circleEnter = circle.enter().append("circle");
+    circleEnter.attr("cy", 60);
+    circleEnter.attr("cx", function (d, i) { return i * 100 + 30; });
+    circleEnter.attr("r", function (d) { return Math.sqrt(d); });
+    circleEnter.style("fill", "steelblue");
+  </script>
